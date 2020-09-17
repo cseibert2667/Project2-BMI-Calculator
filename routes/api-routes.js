@@ -75,7 +75,20 @@ module.exports = function(app) {
         }`
       })
       .then((response)=>{
-        console.log(response.data)
+        console.log(response.data);
+        // now we need to store the returned data in our db
+        db.BmiData.create({
+          weight: response.data.weight.lb,
+          bmiValue: response.data.bmi.value,
+          bmiStatus: response.data.bmi.status,
+          bmiRisk: response.data.bmi.risk,
+          idealWeight: response.data.ideal_weight,
+          whtr: response.data.whtr.status,
+          UserId: req.body.userId
+        }).then((dbBmi)=> {
+          // now we need to read all the table rows that match the userId and send them back to our front-end
+          res.json(dbBmi)
+        })
       })
       .catch((error)=>{
         console.log(error)
