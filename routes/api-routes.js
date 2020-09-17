@@ -53,16 +53,16 @@ module.exports = function(app) {
   // route to take form data and pass it into our 3rd-party API call
   app.post("/api/bmi", (req, res) => {
     axios({
-      "method":"POST",
-      "url":"https://bmi.p.rapidapi.com/",
-      "headers":{
-      "content-type":"application/json",
-      "x-rapidapi-host":"bmi.p.rapidapi.com",
-      "x-rapidapi-key":"64e4e561d4mshad09a7c99abb00dp1ec096jsnda481c856588",
-      "accept":"application/json",
-      "useQueryString":true
+      method: "POST",
+      url: "https://bmi.p.rapidapi.com/",
+      headers: {
+        "content-type": "application/json",
+        "x-rapidapi-host": "bmi.p.rapidapi.com",
+        "x-rapidapi-key": "64e4e561d4mshad09a7c99abb00dp1ec096jsnda481c856588",
+        accept: "application/json",
+        useQueryString: true,
       },
-      "data": `{
+      data: `{
         "weight":{
         "value":"${req.body.weight}",
         "unit":"lb"
@@ -72,9 +72,9 @@ module.exports = function(app) {
         },"sex":"${req.body.sex}",
         "age":"${req.body.age}",
         "waist":"${req.body.waist}"
-        }`
-      })
-      .then((response)=>{
+        }`,
+    })
+      .then((response) => {
         console.log(response.data);
         // now we need to store the returned data in our db
         db.BmiData.create({
@@ -84,14 +84,20 @@ module.exports = function(app) {
           bmiRisk: response.data.bmi.risk,
           idealWeight: response.data.ideal_weight,
           whtr: response.data.whtr.status,
-          UserId: req.body.userId
-        }).then((dbBmi)=> {
+          UserId: req.body.userId,
+        }).then((dbBmi) => {
           // now we need to read all the table rows that match the userId and send them back to our front-end
-          res.json(dbBmi)
-        })
+          db.BmiData.findAll({
+            where: {
+              UserId: req.body.userId,
+            },
+          }).then((allDbBmi) => {
+            res.json(allDbBmi);
+          });
+        });
       })
-      .catch((error)=>{
-        console.log(error)
-      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 };

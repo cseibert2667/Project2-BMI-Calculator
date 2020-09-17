@@ -45,7 +45,10 @@ bmi.onsubmit = function(e) {
     url: "/api/bmi",
     method: "POST",
     data: formdata,
-  }); //.then;
+  }).then((response) =>{
+    // for loop that builds a table row out of each object
+    console.log(response)
+  });
   console.log(e.target);
   return false;
 };
