@@ -1,35 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Passport Authentication</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css"
+    />
+    <link href="stylesheets/style.css" rel="stylesheet" />
+  </head>
 
-<head>
-  <title>Passport Authentication</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-  <link href="stylesheets/style.css" rel="stylesheet">
-</head>
-
-<body>
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/logout">
-        Logout
-      </a>
-    </div>
-  </div>
-</nav>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h2>Welcome <span class="member-name"></span></h2>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/logout">
+            Logout
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <h2>Welcome <span class="member-name"></span></h2>
+        </div>
       </div>
     </div>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/members.js"></script>
-
-</body>
-
+    <form method="POST" id="bmi-input">
+      <label for="weight">Weight:</label>
+      <input type="number" name="weight" min="0" id="weight" />
+      <br />
+      <label for="height">Height:</label>
+      <input type="number" name="height" min="0" id="height" />
+      <br />
+      <label for="age">Age:</label>
+      <input type="number" name="age" min="0" id="age" />
+      <br />
+      <label for="waist">Waist:</label>
+      <input type="number" name="waist" min="0" id="waist" />
+      <br />
+      <label for="hip">Hip:</label>
+      <input type="number" name="hip" min="0" id="hip" />
+      <br />
+      <label for="sex">Gender:</label>
+      <select name="sex" id="sex">
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+      <br />
+      <input type="submit" value="submit" />
+    </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/members.js"></script>
+  </body>
 </html>
