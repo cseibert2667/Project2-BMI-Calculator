@@ -5,7 +5,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
-                isInt: true,
                 notNull: true
             }
         },
@@ -14,7 +13,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
-                isInt: true,
                 notNull: true
             }
         },
