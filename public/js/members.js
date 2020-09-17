@@ -18,18 +18,13 @@ bmi.onsubmit = function(e) {
         .val()
         .trim()
     ),
-    height: parseInt(
+    height:
       $("#height")
         .val()
         .trim()
-    ),
+    ,
     age: parseInt(
       $("#age")
-        .val()
-        .trim()
-    ),
-    hip: parseInt(
-      $("#hip")
         .val()
         .trim()
     ),
@@ -42,11 +37,10 @@ bmi.onsubmit = function(e) {
       .val()
       .trim(),
   };
-  const calc = `{weight: { value: "${formdata.weight}", unit: "lb" },height: { value: "${formdata.height}", unit: "ft-in" },sex: { value: "${formdata.sex}", unit: "M" || "F"},age: { value: "${formdata.age}},waist:{ value: "${formata.waist},hip: "40.00",}`;
   $.ajax({
     url: "/api/bmi",
     method: "POST",
-    data: calc,
+    data: formdata,
   }); //.then;
   console.log(e.target);
   return false;

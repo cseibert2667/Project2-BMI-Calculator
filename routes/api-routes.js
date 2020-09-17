@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+const axios = require("axios");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -13,12 +14,6 @@ module.exports = function(app) {
       id: req.user.id,
     });
   });
-  // app.post("/api/bmi", (req, res) => {
-  //   console.log(req.body);
-  //   db.Info.create(req.body).then(function(info) {
-  //     res.json(info); // using model to create doc and insert inside db, once we get it back were sending it back to front end
-  //   });
-  // });
   // // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
@@ -54,5 +49,36 @@ module.exports = function(app) {
         id: req.user.id,
       });
     }
+  });
+  // route to take form data and pass it into our 3rd-party API call
+  app.post("/api/bmi", (req, res) => {
+    axios({
+      "method":"POST",
+      "url":"https://bmi.p.rapidapi.com/",
+      "headers":{
+      "content-type":"application/json",
+      "x-rapidapi-host":"bmi.p.rapidapi.com",
+      "x-rapidapi-key":"64e4e561d4mshad09a7c99abb00dp1ec096jsnda481c856588",
+      "accept":"application/json",
+      "useQueryString":true
+      },
+      "data": `{
+        "weight":{
+        "value":"${req.body.weight}",
+        "unit":"lb"
+        },"height":{
+        "value":"${req.body.height}",
+        "unit":"ft-in"
+        },"sex":"${req.body.sex}",
+        "age":"${req.body.age}",
+        "waist":"${req.body.waist}"
+        }`
+      })
+      .then((response)=>{
+        console.log(response.data)
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
   });
 };
