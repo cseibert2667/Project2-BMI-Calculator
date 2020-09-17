@@ -42,11 +42,20 @@ module.exports = function(sequelize, DataTypes) {
                 notNull: true,
             }
         },
-        // waist to height ratio = string; we can also allow this column value to be null, as the API will not return a value if the "waist" input on the form is left blank (optional)
+        // waist to height ratio = string; we can allow this column value to be null, as the API will not return a value if the "waist" input on the form is left blank (optional)
         whtr: {
             type: DataTypes.STRING,
             allowNull: true
         }
-    })
+    }, {
+        freezeTableName: true
+    });
+    BmiData.associate = function(models) {
+        BmiData.belongsTo(models.User, {
+            foreignKey: {
+                allowNull:false
+            }
+        });
+    };
     return BmiData;
 }
