@@ -100,4 +100,14 @@ module.exports = function(app) {
         console.log(error);
       });
   });
-};
+  // api route to load all existing info for user on page load
+  app.get("/api/bmi/:id", (req,res) => {
+    db.BmiData.findAll({
+      where: {
+        UserId: req.params.id,
+      },
+    }).then((allDbBmi) => {
+      res.json(allDbBmi);
+    });
+  })
+}
