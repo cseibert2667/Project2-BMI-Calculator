@@ -6,12 +6,12 @@ $(document).ready(() => {
   $.get("/api/user_data").then((data) => {
     $(".member-name").text(data.email);
     id = data.id;
+    // sends request to server to get existing bmi data for the user
     $.get("/api/bmi/"+id).then((res)=>{
       // build table with data
       console.log(res)
     })
   });
-  // sends request to server to get existing bmi data for the user
 });
 // // AJAX calls
 const bmi = document.querySelector("#bmi-input");
