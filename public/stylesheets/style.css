@@ -1,4 +1,55 @@
-form.signup,
-form.login {
-  margin-top: 50px;
+/* body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background-color: #3a3a3a;
+  } */
+  #outer{width:90%;
+    max-width:600px;background:#fff;
+    text-align:center;
+    margin:0 auto;
+    font-weight:500;
+}
+  #cover{border:2px solid #111;
+    padding:15px 0
+}
+  .main{table-layout:fixed;
+    width:94%;
+    border:0;
+    border-collapse:collapse;
+    margin:0 auto;
+}
+  .main td{padding:0 8px;
+    vertical-align:middle;
+    text-align:left;
+    border:0;font:500 16px arial
+}
+  .main input{width:100%;
+    border:1px solid #ccc;
+    margin:2px 0;
+    padding:0 2%;
+    height:22px;
+    text-align:right;
+    font-weight:400;
+    font-size:14px;
+}
+  .main select{width:100%;
+    border:1px solid #ccc;
+    margin:2px 0;
+    background:#fff;
+    height:22px;font-weight:400;
+    font-size:14px;
+}
+.w50{width:50%
+}
+.main button{width:100%;
+    font-weight:500;
+    margin:3px 0;
+}
+.w60{width:60%
+}
+.w40{width:40%
 }
