@@ -9,7 +9,20 @@ $(document).ready(() => {
     // sends request to server to get existing bmi data for the user
     $.get("/api/bmi/"+id).then((res)=>{
       // build table with data
-      console.log(res)
+      for (let i = 0; i < res.length; i++) {
+        const dataRow = res[i]
+        let $tr = $("<tr>");
+        let $th = $("<th>").attr("scope", "row").text(dataRow.createdAt); //date
+        let $weight = $("<td>").text(dataRow.weight); //weight
+        let $bmi = $("<td>").text(dataRow.bmiValue); //weight
+        let $status = $("<td>").text(dataRow.bmiStatus); //weight
+        let $risk = $("<td>").text(dataRow.bmiRisk); //weight
+        let $iw = $("<td>").text(dataRow.idealWeight); //weight
+        let $whtr = $("<td>").text(dataRow.whtr); //weight
+    
+        $($tr).append($th, $weight, $bmi, $status, $risk, $iw, $whtr)
+        $("#bmi-table").append($tr)
+        }
     })
   });
 });
@@ -51,6 +64,21 @@ bmi.onsubmit = function(e) {
     data: formdata,
   }).then((response) =>{
     // for loop that builds a table row out of each object
+    $("bmi-table").empty();
+    for (let i = 0; i < response.length; i++) {
+    const dataRow = response[i]
+    let $tr = $("<tr>");
+    let $th = $("<th>").attr("scope", "row").text(dataRow.createdAt); //date
+    let $weight = $("<td>").text(dataRow.weight); //weight
+    let $bmi = $("<td>").text(dataRow.bmiValue); //weight
+    let $status = $("<td>").text(dataRow.bmiStatus); //weight
+    let $risk = $("<td>").text(dataRow.bmiRisk); //weight
+    let $iw = $("<td>").text(dataRow.idealWeight); //weight
+    let $whtr = $("<td>").text(dataRow.whtr); //weight
+
+    $($tr).append($th, $weight, $bmi, $status, $risk, $iw, $whtr)
+    $("#bmi-table").append($tr)
+    }
     console.log(response)
   });
   console.log(e.target);
