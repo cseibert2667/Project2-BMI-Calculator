@@ -1,5 +1,4 @@
 // const { method } = require("lodash");
-
 let id = ""
 $(document).ready(() => {
   // This file just does a GET request to figure out which user is logged in
@@ -7,6 +6,11 @@ $(document).ready(() => {
   $.get("/api/user_data").then((data) => {
     $(".member-name").text(data.email);
     id = data.id;
+    // sends request to server to get existing bmi data for the user
+    $.get("/api/bmi/"+id).then((res)=>{
+      // build table with data
+      console.log(res)
+    })
   });
 });
 // // AJAX calls
