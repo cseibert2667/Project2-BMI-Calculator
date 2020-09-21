@@ -1,5 +1,5 @@
 // const { method } = require("lodash");
-let id = ""
+let id = "";
 $(document).ready(() => {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
@@ -7,23 +7,28 @@ $(document).ready(() => {
     $(".member-name").text(data.email);
     id = data.id;
     // sends request to server to get existing bmi data for the user
-    $.get("/api/bmi/"+id).then((res)=>{
+    $.get("/api/bmi/" + id).then((res) => {
       // build table with data
       for (let i = 0; i < res.length; i++) {
-        const dataRow = res[i]
+        const dataRow = res[i];
+        let date = dataRow.createdAt;
+      date = date.split("T");
+      date = date[0];
         let $tr = $("<tr>");
-        let $th = $("<th>").attr("scope", "row").text(dataRow.createdAt); //date
+        let $th = $("<th>")
+          .attr("scope", "row")
+          .text(date); //date
         let $weight = $("<td>").text(dataRow.weight); //weight
         let $bmi = $("<td>").text(dataRow.bmiValue); //weight
         let $status = $("<td>").text(dataRow.bmiStatus); //weight
         let $risk = $("<td>").text(dataRow.bmiRisk); //weight
         let $iw = $("<td>").text(dataRow.idealWeight); //weight
         let $whtr = $("<td>").text(dataRow.whtr); //weight
-    
-        $($tr).append($th, $weight, $bmi, $status, $risk, $iw, $whtr)
-        $("#bmi-table").append($tr)
-        }
-    })
+
+        $($tr).append($th, $weight, $bmi, $status, $risk, $iw, $whtr);
+        $("#bmi-table").append($tr);
+      }
+    });
   });
 });
 // // AJAX calls
@@ -37,11 +42,9 @@ bmi.onsubmit = function(e) {
         .val()
         .trim()
     ),
-    height:
-      $("#height")
-        .val()
-        .trim()
-    ,
+    height: $("#height")
+      .val()
+      .trim(),
     age: parseInt(
       $("#age")
         .val()
@@ -55,31 +58,37 @@ bmi.onsubmit = function(e) {
     sex: $("#sex")
       .val()
       .trim(),
-    
+
     userId: id,
   };
   $.ajax({
     url: "/api/bmi",
     method: "POST",
     data: formdata,
-  }).then((response) =>{
+  }).then((response) => {
     // for loop that builds a table row out of each object
     $("bmi-table").empty();
     for (let i = 0; i < response.length; i++) {
-    const dataRow = response[i]
-    let $tr = $("<tr>");
-    let $th = $("<th>").attr("scope", "row").text(dataRow.createdAt); //date
-    let $weight = $("<td>").text(dataRow.weight); //weight
-    let $bmi = $("<td>").text(dataRow.bmiValue); //weight
-    let $status = $("<td>").text(dataRow.bmiStatus); //weight
-    let $risk = $("<td>").text(dataRow.bmiRisk); //weight
-    let $iw = $("<td>").text(dataRow.idealWeight); //weight
-    let $whtr = $("<td>").text(dataRow.whtr); //weight
+      const dataRow = response[i];
+      // split the 'created at' value to get only the date
+      let date = dataRow.createdAt;
+      date = date.split("T");
+      date = date[0]
+      let $tr = $("<tr>");
+      let $th = $("<th>")
+        .attr("scope", "row")
+        .text(date); //date
+      let $weight = $("<td>").text(dataRow.weight); //weight
+      let $bmi = $("<td>").text(dataRow.bmiValue); //weight
+      let $status = $("<td>").text(dataRow.bmiStatus); //weight
+      let $risk = $("<td>").text(dataRow.bmiRisk); //weight
+      let $iw = $("<td>").text(dataRow.idealWeight); //weight
+      let $whtr = $("<td>").text(dataRow.whtr); //weight
 
-    $($tr).append($th, $weight, $bmi, $status, $risk, $iw, $whtr)
-    $("#bmi-table").append($tr)
+      $($tr).append($th, $weight, $bmi, $status, $risk, $iw, $whtr);
+      $("#bmi-table").append($tr);
     }
-    console.log(response)
+    console.log(response);
   });
   console.log(e.target);
   return false;
