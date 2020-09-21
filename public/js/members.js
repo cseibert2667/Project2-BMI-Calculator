@@ -1,4 +1,3 @@
-// const { method } = require("lodash");
 let id = "";
 $(document).ready(() => {
   // This file just does a GET request to figure out which user is logged in
@@ -12,8 +11,8 @@ $(document).ready(() => {
       for (let i = 0; i < res.length; i++) {
         const dataRow = res[i];
         let date = dataRow.createdAt;
-      date = date.split("T");
-      date = date[0];
+        date = date.split("T");
+        date = date[0];
         let $tr = $("<tr>");
         let $th = $("<th>")
           .attr("scope", "row")
@@ -73,7 +72,7 @@ bmi.onsubmit = function(e) {
       // split the 'created at' value to get only the date
       let date = dataRow.createdAt;
       date = date.split("T");
-      date = date[0]
+      date = date[0];
       let $tr = $("<tr>");
       let $th = $("<th>")
         .attr("scope", "row")
