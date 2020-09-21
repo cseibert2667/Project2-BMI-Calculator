@@ -2,6 +2,8 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const axios = require("axios");
+// configure our environment variable to hide the api key
+require("dotenv").config();
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -59,7 +61,7 @@ module.exports = function(app) {
       headers: {
         "content-type": "application/json",
         "x-rapidapi-host": "bmi.p.rapidapi.com",
-        "x-rapidapi-key": "64e4e561d4mshad09a7c99abb00dp1ec096jsnda481c856588",
+        "x-rapidapi-key": process.env.API_KEY,
         accept: "application/json",
         useQueryString: true,
       },
@@ -101,9 +103,9 @@ module.exports = function(app) {
         console.log(error);
       });
   });
-  
+
   // api route to load all existing info for user on page load
-  app.get("/api/bmi/:id", (req,res) => {
+  app.get("/api/bmi/:id", (req, res) => {
     db.BmiData.findAll({
       where: {
         UserId: req.params.id,
@@ -111,5 +113,5 @@ module.exports = function(app) {
     }).then((allDbBmi) => {
       res.json(allDbBmi);
     });
-  })
-}
+  });
+};
