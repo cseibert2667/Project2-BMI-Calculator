@@ -82,14 +82,22 @@ module.exports = function(app) {
         }`,
     })
       .then((response) => {
-        console.log(response.data);
+        // the 'ideal_weight' property only returns in kg, so we set up an equation to parse out the integers from the string, find the average, then convert that number to lbs
+        let array = []
+        let iwavg = _.split(response.data.ideal_weight, " to ", 2);
+        array.push(parseInt(iwavg[0]));
+        array.push(parseInt(iwavg[1]));
+        iwavg = _.mean(array);
+        iwavg = _.multiply(iwavg, 2.2046);
+        iwavg = _.floor(iwavg);
+        iwavg = iwavg + "lbs"
         // now we need to store the returned data in our db
         db.BmiData.create({
           weight: response.data.weight.lb,
           bmiValue: response.data.bmi.value,
           bmiStatus: response.data.bmi.status,
           bmiRisk: response.data.bmi.risk,
-          idealWeight: response.data.ideal_weight,
+          idealWeight: iwavg,
           whtr: response.data.whtr.status,
           UserId: req.body.userId,
         }).then((dbBmi) => {
