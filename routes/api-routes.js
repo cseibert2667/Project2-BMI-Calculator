@@ -2,8 +2,10 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const axios = require("axios");
+const _ = require("lodash");
 // configure our environment variable to hide the api key
 require("dotenv").config();
+
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -46,8 +48,10 @@ module.exports = function(app) {
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
+      let user = req.user.email;
+      user = _.split(user, "@", 2);
       res.json({
-        email: req.user.email,
+        email: _.startCase(user[0]),
         id: req.user.id,
       });
     }
