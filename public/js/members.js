@@ -67,7 +67,7 @@ bmi.onsubmit = function(e) {
     data: formdata,
   }).then((response) => {
     // for loop that builds a table row out of each object
-    $("bmi-table").empty();
+    $("#bmi-table").empty();
     for (let i = 0; i < response.length; i++) {
       const dataRow = response[i];
       // split the 'created at' value to get only the date
@@ -79,11 +79,11 @@ bmi.onsubmit = function(e) {
         .attr("scope", "row")
         .text(date); //date
       let $weight = $("<td>").text(dataRow.weight); //weight
-      let $bmi = $("<td>").text(dataRow.bmiValue); //weight
-      let $status = $("<td>").text(dataRow.bmiStatus); //weight
-      let $risk = $("<td>").text(dataRow.bmiRisk); //weight
-      let $iw = $("<td>").text(dataRow.idealWeight); //weight
-      let $whtr = $("<td>").text(dataRow.whtr); //weight
+      let $bmi = $("<td>").text(dataRow.bmiValue); //bmi
+      let $status = $("<td>").text(dataRow.bmiStatus); //status
+      let $risk = $("<td>").text(dataRow.bmiRisk); //risk
+      let $iw = $("<td>").text(dataRow.idealWeight); //ideal-weight
+      let $whtr = $("<td>").text(dataRow.whtr); //WHtR
 
       $($tr).append($th, $weight, $bmi, $status, $risk, $iw, $whtr);
       $("#bmi-table").append($tr);
