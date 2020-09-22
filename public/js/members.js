@@ -88,7 +88,8 @@ bmi.onsubmit = function(e) {
       $("#bmi-table").append($tr);
     }
     console.log(response);
+    return;
   });
-  console.log(e.target);
-  return false;
+  // console.log(e.target);
+  // return false;
 };
